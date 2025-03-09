@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Minics | Mon Compte
+{% endblock %}
+
+{% block body %}
+	{# 
+									     Exo : Créer le compte utilisateur, afficher les données personnelles de l'utilisateur qui est connecté en passant par l'objet 'app.user' . 
+									     Faite de sorte de rediriger l'internaute si il tente d'accéder à cette page si l'utilisateur n'est pas authentifié. 
+									 #}
+
+	<div class="col-lg-8 offset-lg-2">
+		<div class="full">
+			<div class="col-sm-12 col-md-8 col-lg-12">
+				<div class="box-profil">
+					<div class="detail-box d-flex align-items-center justify-content-between">
+						<h5>Prénom</h5>
+						<h6>{{ user.firstName }}</h6>
+					</div>
+					<div class="detail-box d-flex align-items-center justify-content-between">
+						<h5>Nom</h5>
+						<h6>{{ user.lastName }}</h6>
+					</div>
+					<div class="detail-box d-flex align-items-center justify-content-between">
+						<h5>Email</h5>
+						<h6>{{ user.email }}</h6>
+					</div>
+					<div class="detail-box d-flex align-items-center justify-content-between">
+						<h5>Adresse</h5>
+						<h6>{{ user.address }}</h6>
+					</div>
+					<div class="detail-box d-flex align-items-center justify-content-between">
+						<h5>Ville</h5>
+						<h6>{{ user.city }}</h6>
+					</div>
+					<div class="detail-box d-flex align-items-center justify-content-between">
+						<h5>Code postal</h5>
+						<h6>{{ user.postalCode }}</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
