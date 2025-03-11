@@ -82,11 +82,11 @@ class ProductFormType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '100M',
+                        'maxSize' => '10M',
                         'mimeTypes' => [
-                            'images/jpeg',
-                            'images/png',
-                            'images/jpg',
+                            'image/jpeg',
+                            'image/png',
+                            'image/jpg',
                         ],
                         'mimeTypesMessage' => "Format autorisés : jpg/jpeg/png"
                     ])

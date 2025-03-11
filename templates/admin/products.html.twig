@@ -4,6 +4,89 @@
 {% endblock %}
 
 {% block body %}
+	<style>
+		.modal-backdrop {
+			z-index: 1 !important;
+		}
+	</style>
+
+	<div class="container">
+
+		{% for label, messages in app.flashes(['success', 'danger']) %}
+			{% for message in messages %}
+				<div class="bg-{{label}} text-white p-3 mb-3">
+					{{ message|raw }}
+				</div>
+			{% endfor %}
+		{% endfor %}
+
+		<div>
+			<h2 class="my-4 fs-3">Liste des Produits</h2>
+		</div>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Image</th>
+					<th>Reférence</th>
+					<th>Titre</th>
+					<th>Description</th>
+					<th>Catégorie</th>
+					<th>Mémoires</th>
+					<th>Couleur</th>
+					<th>Genre</th>
+					<th>Stock</th>
+					<th>Prix</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in dbProducts %}
+					<tr>
+						<td><img src="{{ asset('uploads/images/' ~ item.picture) }}" alt="{{item.title}}" style="max-width: 75px;">
+						</td>
+						<td>{{ item.reference }}</td>
+						<td>{{ item.title }}</td>
+						<td>{{ item.description|slice(0, 30) }}[...]</td>
+						<td>{{ item.category.title }}</td>
+						<td>{{ item.size }}</td>
+						<td>{{ item.color }}</td>
+						<td>{{ item.gender }}</td>
+						<td>{{ item.stock }}</td>
+						<td>{{ item.price }}€</td>
+						<td>
+							<a href="{{ path('app_admin_products_update',{'id': item.id}) }}" class="btn btn-dark mb-2">
+								<i class="fa-solid fa-pen-to-square"></i>
+							</a>
+							<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#product-{{ item.id }}">
+								<i class="fa-solid fa-trash"></i>
+							</button>
+						</td>
+					</tr>
+					<!-- Modal -->
+					<div class="modal fade" id="product-{{ item.title }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation Suppression</h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									Voulez-vous réellement supprimer le produit
+									<strong>{{ item.title }}</strong>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+
+									<a href="" class="btn btn-primary">Confirmer</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
 	<div class="container mb-4">
 		<div>
 			<h2 class="my-4 fs-3">Ajouter un produit</h2>
@@ -20,6 +103,12 @@
 			{{ form_row(productForm.stock) }}
 			{{ form_row(productForm.price) }}
 			{{ form_row(productForm.picture) }}
+
+			<div class="col-12 col-sm-6 col-md-2 col-lg-2 my-4">
+				{% if pictureFile is not null %}
+					<img src="{{ asset('uploads/images/' ~ pictureFile) }}" class="w-100" alt="picture product">
+				{% endif %}
+			</div>
 
 			<button type="submit" class="btn btn-dark">Enregistrer</button>
 			{{ form_end(productForm) }}
