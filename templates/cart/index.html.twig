@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Minics | Votre Panier
+{% endblock %}
+
+{% block body %}
+
+	<div class="container my-5">
+		<table class="table table-borderless">
+			<thead>
+				<tr>
+					<th>Photo</th>
+					<th>Titre</th>
+					<th>Référence</th>
+					<th>Catégorie</th>
+					<th>Quantité</th>
+					<th>Prix Unitaire</th>
+					<th>Prix Total</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if dataCart is empty %}
+					<tr>
+						<td colspan="7" class="text-center">Aucun article dans le panier</td>
+					</tr>
+				{% else %}
+					{% for item in dataCart %}
+						<td></td>
+						<td>{{ item.title }}</td>
+					{% endfor %}
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}
